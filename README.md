@@ -8,21 +8,17 @@
 - scripts to automatically relaunch the server and rebuild client in dev mode
 - use of materialUi
 
-## Get started
+## Config file
 
-### Config
+Rename the file /conf.copy.json to /conf.json and change the parameters
 
-rename the file /conf.copy.json to /conf.json and change the config settings
-
-### Install
-
-install
+## Install
 
 ```bash
 npm install
 ```
 
-### Build & run
+## Build & run
 
 run the project in development mode (build sources and launch server)
 
@@ -30,7 +26,7 @@ run the project in development mode (build sources and launch server)
 npm run dev
 ```
 
-build the sources
+build sources
 
 ```bash
 npm run build
@@ -41,3 +37,8 @@ run the server
 ```bash
 npm run start
 ```
+
+## Try the application
+
+Once the application is running, open the 
+[following link](http://localhost:3000)

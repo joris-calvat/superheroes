@@ -11,7 +11,7 @@ class Characters extends React.Component {
 
   constructor(props) {
     super(props)
-    console.log('ici')
+    
     const { page } = this.props.match.params
     this.state = {
       characters: [],
@@ -44,7 +44,7 @@ class Characters extends React.Component {
   }
 
   render() {
-    console.log(this.state)
+    
     const { characters, page } = this.state 
     
     if(characters.length === 0) return <Loader />

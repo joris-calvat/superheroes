@@ -4,6 +4,13 @@ import axios from 'axios';
 import Character from './Character';
 import Loader from './Loader';
 
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import './CharacterDetails.css';
+
 class CharacterDetails extends React.Component {
 
   constructor(props) {
@@ -25,13 +32,42 @@ class CharacterDetails extends React.Component {
     });
   }
 
+  getList(title, list) {
+
+    if(list.available === 0) return null
+
+    return <ExpansionPanel>
+      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+        <Typography variant="headline">{title} ({list.available})</Typography>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails className="listItems">
+        {list.items.map((item, index) => (<div key={`comics-${index}`} className="listItem">
+          <Typography variant="body2"><a href={item.resourceURI} target="_blank">{item.name}</a></Typography>
+        </div>))}
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
+  }
+
   render() {
-    console.log(this.state.details)
+    const { details } = this.state;
 
-    if(this.state.details === null) return <Loader />
+    if(details === null) return <Loader />
 
-    return <div>
-      {this.state.details.name}
+    const thumbnail = `${details.thumbnail.path}.${details.thumbnail.extension}`;
+
+    return <div className="characterDetails">
+      <div className="picture">
+        <img src={thumbnail} alt={details.name} />
+      </div>
+      <div className="details">
+        <Typography variant="display1" className="detailsTitle">{details.name}</Typography>
+        <Typography variant="body2" className="detailsDescription">{details.description}</Typography>
+        <div className="detailsLists">
+          {this.getList('comics', details.comics)}
+          {this.getList('series', details.series)}
+          {this.getList('stories', details.stories)}
+        </div>
+      </div>
     </div>;
   }
 }
