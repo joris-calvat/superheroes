@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Characters from './Characters' 
+import CharacterDetails from './CharacterDetails' 
 
-const Characters = () => (<div>Characters</div>)
-const CharacterDetails = () => (<div>Character details</div>)
 
 const App = () => (
 <Router>
