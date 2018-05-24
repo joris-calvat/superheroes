@@ -8198,215 +8198,6 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ "./node_modules/@material-ui/core/styles/MuiThemeProvider.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/@material-ui/core/styles/MuiThemeProvider.js ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireWildcard = __webpack_require__(/*! @babel/runtime/helpers/interopRequireWildcard */ "./node_modules/@babel/runtime/helpers/interopRequireWildcard.js");
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _objectSpread2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectSpread */ "./node_modules/@babel/runtime/helpers/objectSpread.js"));
-
-var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js"));
-
-var _getPrototypeOf = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/core-js/object/get-prototype-of */ "./node_modules/@babel/runtime/core-js/object/get-prototype-of.js"));
-
-var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js"));
-
-var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js"));
-
-var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js"));
-
-var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/inherits */ "./node_modules/@babel/runtime/helpers/inherits.js"));
-
-var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ "./node_modules/@babel/runtime/helpers/assertThisInitialized.js"));
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-
-var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"));
-
-var _warning = _interopRequireDefault(__webpack_require__(/*! warning */ "./node_modules/warning/browser.js"));
-
-var _brcast = _interopRequireDefault(__webpack_require__(/*! brcast */ "./node_modules/brcast/dist/brcast.es.js"));
-
-var _themeListener = _interopRequireWildcard(__webpack_require__(/*! ./themeListener */ "./node_modules/@material-ui/core/styles/themeListener.js"));
-
-var _exactProp = _interopRequireDefault(__webpack_require__(/*! ../utils/exactProp */ "./node_modules/@material-ui/core/utils/exactProp.js"));
-
-/**
- * This component takes a `theme` property.
- * It makes the `theme` available down the React tree thanks to React context.
- * This component should preferably be used at **the root of your component tree**.
- */
-var MuiThemeProvider =
-/*#__PURE__*/
-function (_React$Component) {
-  (0, _inherits2.default)(MuiThemeProvider, _React$Component);
-
-  function MuiThemeProvider(props, context) {
-    var _this;
-
-    (0, _classCallCheck2.default)(this, MuiThemeProvider);
-    _this = (0, _possibleConstructorReturn2.default)(this, (MuiThemeProvider.__proto__ || (0, _getPrototypeOf.default)(MuiThemeProvider)).call(this, props, context)); // Get the outer theme from the context, can be null
-
-    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "broadcast", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: (0, _brcast.default)()
-    });
-    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "unsubscribeId", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: null
-    });
-    Object.defineProperty((0, _assertThisInitialized2.default)(_this), "outerTheme", {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value: null
-    });
-    _this.outerTheme = _themeListener.default.initial(context); // Propagate the theme so it can be accessed by the children
-
-    _this.broadcast.setState(_this.mergeOuterLocalTheme(_this.props.theme));
-
-    return _this;
-  }
-
-  (0, _createClass2.default)(MuiThemeProvider, [{
-    key: "getChildContext",
-    value: function getChildContext() {
-      var _ref;
-
-      var _props = this.props,
-          sheetsManager = _props.sheetsManager,
-          disableStylesGeneration = _props.disableStylesGeneration;
-      var muiThemeProviderOptions = this.context.muiThemeProviderOptions || {};
-
-      if (sheetsManager !== undefined) {
-        muiThemeProviderOptions.sheetsManager = sheetsManager;
-      }
-
-      if (disableStylesGeneration !== undefined) {
-        muiThemeProviderOptions.disableStylesGeneration = disableStylesGeneration;
-      }
-
-      return _ref = {}, (0, _defineProperty2.default)(_ref, _themeListener.CHANNEL, this.broadcast), (0, _defineProperty2.default)(_ref, "muiThemeProviderOptions", muiThemeProviderOptions), _ref;
-    }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      // Subscribe on the outer theme, if present
-      this.unsubscribeId = _themeListener.default.subscribe(this.context, function (outerTheme) {
-        _this2.outerTheme = outerTheme; // Forward the parent theme update to the children
-
-        _this2.broadcast.setState(_this2.mergeOuterLocalTheme(_this2.props.theme));
-      });
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      // Propagate a local theme update
-      if (this.props.theme !== prevProps.theme) {
-        this.broadcast.setState(this.mergeOuterLocalTheme(this.props.theme));
-      }
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      if (this.unsubscribeId !== null) {
-        _themeListener.default.unsubscribe(this.context, this.unsubscribeId);
-      }
-    }
-  }, {
-    key: "mergeOuterLocalTheme",
-    // Simple merge between the outer theme and the local theme
-    value: function mergeOuterLocalTheme(localTheme) {
-      // To support composition of theme.
-      if (typeof localTheme === 'function') {
-         true ? (0, _warning.default)(this.outerTheme, ['Material-UI: you are providing a theme function property ' + 'to the MuiThemeProvider component:', '<MuiThemeProvider theme={outerTheme => outerTheme} />', '', 'However, no outer theme is present.', 'Make sure a theme is already injected higher in the React tree ' + 'or provide a theme object.'].join('\n')) : undefined;
-        return localTheme(this.outerTheme);
-      }
-
-      if (!this.outerTheme) {
-        return localTheme;
-      }
-
-      return (0, _objectSpread2.default)({}, this.outerTheme, localTheme);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      // TODO move the sheetsManager property to a different component.
-      // warning(
-      //   typeof window !== 'undefined' || this.props.sheetsManager,
-      //   [
-      //     'Material-UI: you need to provide a sheetsManager to the MuiThemeProvider ' +
-      //       'when rendering on the server.',
-      //     'If you do not, you might experience a memory leak',
-      //   ].join('\n'),
-      // );
-      return this.props.children;
-    }
-  }]);
-  return MuiThemeProvider;
-}(_react.default.Component);
-
-MuiThemeProvider.propTypes =  true ? {
-  /**
-   * You can wrap a node.
-   */
-  children: _propTypes.default.node.isRequired,
-
-  /**
-   * You can disable the generation of the styles with this option.
-   * It can be useful when traversing the React tree outside of the HTML
-   * rendering step on the server.
-   * Let's say you are using react-apollo to extract all
-   * the queries made by the interface server side.
-   * You can significantly speed up the traversal with this property.
-   */
-  disableStylesGeneration: _propTypes.default.bool,
-
-  /**
-   * The sheetsManager is used to deduplicate style sheet injection in the page.
-   * It's deduplicating using the (theme, styles) couple.
-   * On the server, you should provide a new instance for each request.
-   */
-  sheetsManager: _propTypes.default.object,
-
-  /**
-   * A theme object.
-   */
-  theme: _propTypes.default.oneOfType([_propTypes.default.object, _propTypes.default.func]).isRequired
-} : undefined;
-MuiThemeProvider.propTypes =  true ? (0, _exactProp.default)(MuiThemeProvider.propTypes, 'MuiThemeProvider') : undefined;
-MuiThemeProvider.childContextTypes = (0, _objectSpread2.default)({}, _themeListener.default.contextTypes, {
-  muiThemeProviderOptions: _propTypes.default.object
-});
-MuiThemeProvider.contextTypes = (0, _objectSpread2.default)({}, _themeListener.default.contextTypes, {
-  muiThemeProviderOptions: _propTypes.default.object
-});
-var _default = MuiThemeProvider;
-exports.default = _default;
-
-/***/ }),
-
 /***/ "./node_modules/@material-ui/core/styles/colorManipulator.js":
 /*!*******************************************************************!*\
   !*** ./node_modules/@material-ui/core/styles/colorManipulator.js ***!
@@ -9426,72 +9217,6 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ "./node_modules/@material-ui/core/styles/index.js":
-/*!********************************************************!*\
-  !*** ./node_modules/@material-ui/core/styles/index.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "createGenerateClassName", {
-  enumerable: true,
-  get: function get() {
-    return _createGenerateClassName.default;
-  }
-});
-Object.defineProperty(exports, "createMuiTheme", {
-  enumerable: true,
-  get: function get() {
-    return _createMuiTheme.default;
-  }
-});
-Object.defineProperty(exports, "jssPreset", {
-  enumerable: true,
-  get: function get() {
-    return _jssPreset.default;
-  }
-});
-Object.defineProperty(exports, "MuiThemeProvider", {
-  enumerable: true,
-  get: function get() {
-    return _MuiThemeProvider.default;
-  }
-});
-Object.defineProperty(exports, "withStyles", {
-  enumerable: true,
-  get: function get() {
-    return _withStyles.default;
-  }
-});
-Object.defineProperty(exports, "withTheme", {
-  enumerable: true,
-  get: function get() {
-    return _withTheme.default;
-  }
-});
-
-var _createGenerateClassName = _interopRequireDefault(__webpack_require__(/*! ./createGenerateClassName */ "./node_modules/@material-ui/core/styles/createGenerateClassName.js"));
-
-var _createMuiTheme = _interopRequireDefault(__webpack_require__(/*! ./createMuiTheme */ "./node_modules/@material-ui/core/styles/createMuiTheme.js"));
-
-var _jssPreset = _interopRequireDefault(__webpack_require__(/*! ./jssPreset */ "./node_modules/@material-ui/core/styles/jssPreset.js"));
-
-var _MuiThemeProvider = _interopRequireDefault(__webpack_require__(/*! ./MuiThemeProvider */ "./node_modules/@material-ui/core/styles/MuiThemeProvider.js"));
-
-var _withStyles = _interopRequireDefault(__webpack_require__(/*! ./withStyles */ "./node_modules/@material-ui/core/styles/withStyles.js"));
-
-var _withTheme = _interopRequireDefault(__webpack_require__(/*! ./withTheme */ "./node_modules/@material-ui/core/styles/withTheme.js"));
-
-/***/ }),
-
 /***/ "./node_modules/@material-ui/core/styles/jssPreset.js":
 /*!************************************************************!*\
   !*** ./node_modules/@material-ui/core/styles/jssPreset.js ***!
@@ -10193,141 +9918,6 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ "./node_modules/@material-ui/core/styles/withTheme.js":
-/*!************************************************************!*\
-  !*** ./node_modules/@material-ui/core/styles/withTheme.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
-
-var _getPrototypeOf = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/core-js/object/get-prototype-of */ "./node_modules/@babel/runtime/core-js/object/get-prototype-of.js"));
-
-var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js"));
-
-var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js"));
-
-var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js"));
-
-var _inherits2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/inherits */ "./node_modules/@babel/runtime/helpers/inherits.js"));
-
-var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ "./node_modules/@babel/runtime/helpers/assertThisInitialized.js"));
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-
-var _hoistNonReactStatics = _interopRequireDefault(__webpack_require__(/*! hoist-non-react-statics */ "./node_modules/hoist-non-react-statics/index.js"));
-
-var _wrapDisplayName = _interopRequireDefault(__webpack_require__(/*! recompose/wrapDisplayName */ "./node_modules/recompose/wrapDisplayName.js"));
-
-var _createMuiTheme = _interopRequireDefault(__webpack_require__(/*! ./createMuiTheme */ "./node_modules/@material-ui/core/styles/createMuiTheme.js"));
-
-var _themeListener = _interopRequireDefault(__webpack_require__(/*! ./themeListener */ "./node_modules/@material-ui/core/styles/themeListener.js"));
-
-var defaultTheme;
-
-function getDefaultTheme() {
-  if (defaultTheme) {
-    return defaultTheme;
-  }
-
-  defaultTheme = (0, _createMuiTheme.default)();
-  return defaultTheme;
-} // Provide the theme object as a property to the input component.
-
-
-var withTheme = function withTheme() {
-  return function (Component) {
-    var WithTheme =
-    /*#__PURE__*/
-    function (_React$Component) {
-      (0, _inherits2.default)(WithTheme, _React$Component);
-
-      function WithTheme(props, context) {
-        var _this;
-
-        (0, _classCallCheck2.default)(this, WithTheme);
-        _this = (0, _possibleConstructorReturn2.default)(this, (WithTheme.__proto__ || (0, _getPrototypeOf.default)(WithTheme)).call(this, props, context));
-        Object.defineProperty((0, _assertThisInitialized2.default)(_this), "state", {
-          configurable: true,
-          enumerable: true,
-          writable: true,
-          value: {}
-        });
-        Object.defineProperty((0, _assertThisInitialized2.default)(_this), "unsubscribeId", {
-          configurable: true,
-          enumerable: true,
-          writable: true,
-          value: null
-        });
-        _this.state = {
-          // We use || as the function call is lazy evaluated.
-          theme: _themeListener.default.initial(context) || getDefaultTheme()
-        };
-        return _this;
-      }
-
-      (0, _createClass2.default)(WithTheme, [{
-        key: "componentDidMount",
-        value: function componentDidMount() {
-          var _this2 = this;
-
-          this.unsubscribeId = _themeListener.default.subscribe(this.context, function (theme) {
-            _this2.setState({
-              theme: theme
-            });
-          });
-        }
-      }, {
-        key: "componentWillUnmount",
-        value: function componentWillUnmount() {
-          if (this.unsubscribeId !== null) {
-            _themeListener.default.unsubscribe(this.context, this.unsubscribeId);
-          }
-        }
-      }, {
-        key: "render",
-        value: function render() {
-          return _react.default.createElement(Component, (0, _extends2.default)({
-            theme: this.state.theme
-          }, this.props));
-        }
-      }]);
-      return WithTheme;
-    }(_react.default.Component);
-
-    WithTheme.contextTypes = _themeListener.default.contextTypes;
-
-    if (true) {
-      WithTheme.displayName = (0, _wrapDisplayName.default)(Component, 'WithTheme');
-    }
-
-    (0, _hoistNonReactStatics.default)(WithTheme, Component);
-
-    if (true) {
-      // Exposed for test purposes.
-      WithTheme.Naked = Component;
-    }
-
-    return WithTheme;
-  };
-};
-
-var _default = withTheme;
-exports.default = _default;
-
-/***/ }),
-
 /***/ "./node_modules/@material-ui/core/styles/zIndex.js":
 /*!*********************************************************!*\
   !*** ./node_modules/@material-ui/core/styles/zIndex.js ***!
@@ -10387,52 +9977,6 @@ function getTransitionProps(props, options) {
     duration: style.transitionDuration || typeof timeout === 'number' ? timeout : timeout[options.mode],
     delay: style.transitionDelay
   };
-}
-
-/***/ }),
-
-/***/ "./node_modules/@material-ui/core/utils/exactProp.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/@material-ui/core/utils/exactProp.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = exactProp;
-exports.specialProperty = void 0;
-
-var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js"));
-
-var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/core-js/object/keys */ "./node_modules/@babel/runtime/core-js/object/keys.js"));
-
-var _objectSpread3 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectSpread */ "./node_modules/@babel/runtime/helpers/objectSpread.js"));
-
-// This module is based on https://github.com/airbnb/prop-types-exact repository.
-// However, in order to reduce the number of dependencies and to remove some extra safe checks
-// the module was forked.
-var specialProperty = "exact-prop: \u200B";
-exports.specialProperty = specialProperty;
-
-function exactProp(propTypes, componentNameInError) {
-  return (0, _objectSpread3.default)({}, propTypes, (0, _defineProperty2.default)({}, specialProperty, function (props) {
-    var unknownProps = (0, _keys.default)(props).filter(function (prop) {
-      return !propTypes.hasOwnProperty(prop);
-    });
-
-    if (unknownProps.length > 0) {
-      return new TypeError("".concat(componentNameInError, ": unknown props found: ").concat(unknownProps.join(', '), ". Please remove the unknown properties."));
-    }
-
-    return null;
-  }));
 }
 
 /***/ }),
@@ -14240,59 +13784,6 @@ for (var i = 0; i < DOMIterables.length; i++) {
   if (proto && !proto[TO_STRING_TAG]) hide(proto, TO_STRING_TAG, NAME);
   Iterators[NAME] = Iterators.Array;
 }
-
-
-/***/ }),
-
-/***/ "./node_modules/brcast/dist/brcast.es.js":
-/*!***********************************************!*\
-  !*** ./node_modules/brcast/dist/brcast.es.js ***!
-  \***********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-function createBroadcast (initialState) {
-  var listeners = {};
-  var id = 1;
-  var _state = initialState;
-
-  function getState () {
-    return _state
-  }
-
-  function setState (state) {
-    _state = state;
-    var keys = Object.keys(listeners);
-    var i = 0;
-    var len = keys.length;
-    for (; i < len; i++) {
-      // if a listener gets unsubscribed during setState we just skip it
-      if (listeners[keys[i]]) { listeners[keys[i]](state); }
-    }
-  }
-
-  // subscribe to changes and return the subscriptionId
-  function subscribe (listener) {
-    if (typeof listener !== 'function') {
-      throw new Error('listener must be a function.')
-    }
-    var currentId = id;
-    listeners[currentId] = listener;
-    id += 1;
-    return currentId
-  }
-
-  // remove subscription by removing the listener function
-  function unsubscribe (id) {
-    listeners[id] = undefined;
-  }
-
-  return { getState: getState, setState: setState, subscribe: subscribe, unsubscribe: unsubscribe }
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (createBroadcast);
 
 
 /***/ }),
@@ -45562,13 +45053,13 @@ if(false) {}
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
@@ -45627,7 +45118,9 @@ var App = function App() {
   );
 };
 
-module.exports = App;
+App.propTypes = {};
+
+exports.default = App;
 
 /***/ }),
 
@@ -45681,17 +45174,7 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-
-var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _styles = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/styles/index.js");
 
 var _Card = __webpack_require__(/*! @material-ui/core/Card */ "./node_modules/@material-ui/core/Card/index.js");
 
@@ -45716,6 +45199,10 @@ var _Button2 = _interopRequireDefault(_Button);
 var _Typography = __webpack_require__(/*! @material-ui/core/Typography */ "./node_modules/@material-ui/core/Typography/index.js");
 
 var _Typography2 = _interopRequireDefault(_Typography);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 __webpack_require__(/*! ./Character.css */ "./src/Character.css");
 
@@ -45743,9 +45230,6 @@ var Character = function (_React$Component) {
 
       var thumbnail = infos.thumbnail.path + "." + infos.thumbnail.extension;
       var name = infos.name;
-      var _infos$comics = infos.comics,
-          comicLink = _infos$comics.comicLink,
-          available = _infos$comics.available;
 
 
       var buttons = infos.urls.map(function (link, index) {
@@ -45793,6 +45277,10 @@ var Character = function (_React$Component) {
 
   return Character;
 }(_react2.default.Component);
+
+Character.propTypes = {
+  infos: _propTypes2.default.any
+};
 
 exports.default = Character;
 
@@ -45848,17 +45336,9 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
 var _axios2 = _interopRequireDefault(_axios);
-
-var _Character = __webpack_require__(/*! ./Character */ "./src/Character.js");
-
-var _Character2 = _interopRequireDefault(_Character);
 
 var _Loader = __webpack_require__(/*! ./Loader */ "./src/Loader.js");
 
@@ -45883,6 +45363,10 @@ var _Typography2 = _interopRequireDefault(_Typography);
 var _ExpandMore = __webpack_require__(/*! @material-ui/icons/ExpandMore */ "./node_modules/@material-ui/icons/ExpandMore.js");
 
 var _ExpandMore2 = _interopRequireDefault(_ExpandMore);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 __webpack_require__(/*! ./CharacterDetails.css */ "./src/CharacterDetails.css");
 
@@ -45918,8 +45402,6 @@ var CharacterDetails = function (_React$Component) {
         _this2.setState({
           details: response.data.data.results[0]
         });
-      }).catch(function (error) {
-        console.log(error);
       });
     }
   }, {
@@ -46010,6 +45492,15 @@ var CharacterDetails = function (_React$Component) {
   return CharacterDetails;
 }(_react2.default.Component);
 
+CharacterDetails.propTypes = {
+  id: _propTypes2.default.string,
+  match: _propTypes2.default.shape({
+    params: _propTypes2.default.shape({
+      id: _propTypes2.default.string
+    })
+  })
+};
+
 exports.default = CharacterDetails;
 
 /***/ }),
@@ -46064,10 +45555,6 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
 var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -46085,6 +45572,10 @@ var _Button2 = _interopRequireDefault(_Button);
 var _Loader = __webpack_require__(/*! ./Loader */ "./src/Loader.js");
 
 var _Loader2 = _interopRequireDefault(_Loader);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 __webpack_require__(/*! ./Characters.css */ "./src/Characters.css");
 
@@ -46116,7 +45607,7 @@ var Characters = function (_React$Component) {
 
   _createClass(Characters, [{
     key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps, prevState, snapshot) {
+    value: function componentDidUpdate(prevProps) {
       var _this2 = this;
 
       if (prevProps.match.params.page !== this.props.match.params.page) {
@@ -46141,8 +45632,6 @@ var Characters = function (_React$Component) {
         _this3.setState({
           characters: response.data.data.results
         });
-      }).catch(function (error) {
-        console.log(error);
       });
     }
   }, {
@@ -46189,6 +45678,15 @@ var Characters = function (_React$Component) {
   return Characters;
 }(_react2.default.Component);
 
+Characters.propTypes = {
+  page: _propTypes2.default.string,
+  match: _propTypes2.default.shape({
+    params: _propTypes2.default.shape({
+      page: _propTypes2.default.string
+    })
+  })
+};
+
 exports.default = Characters;
 
 /***/ }),
@@ -46233,13 +45731,13 @@ if(false) {}
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _CircularProgress = __webpack_require__(/*! @material-ui/core/CircularProgress */ "./node_modules/@material-ui/core/CircularProgress/index.js");
 
@@ -46266,7 +45764,7 @@ var Loader = function Loader() {
     );
 };
 
-module.exports = Loader;
+exports.default = Loader;
 
 /***/ }),
 

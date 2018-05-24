@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from 'react-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import './Loader.css'
@@ -11,4 +10,4 @@ const Loader = () => (
     </div>
 )
 
-module.exports = Loader
+export default Loader

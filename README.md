@@ -7,6 +7,7 @@
 - secured server side api calls
 - scripts to automatically relaunch the server and rebuild client in dev mode
 - use of materialUi & responsive design
+- eslint
 
 ## Config file
 

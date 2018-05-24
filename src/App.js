@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Characters from './Characters' 
 import CharacterDetails from './CharacterDetails' 
@@ -26,4 +25,7 @@ const App = () => (
   </Router>
 )
 
-module.exports = App
+App.propTypes = {
+};
+
+export default App

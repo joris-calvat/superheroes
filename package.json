@@ -23,6 +23,8 @@
     "babel-preset-react": "^6.24.1",
     "concurrently": "^3.5.1",
     "css-loader": "^0.28.11",
+    "eslint": "^4.19.1",
+    "eslint-plugin-react": "^7.8.2",
     "nodemon": "^1.17.5",
     "react-router-dom": "^4.2.2",
     "style-loader": "^0.21.0",
@@ -33,7 +35,9 @@
     "build": "webpack --mode production",
     "build-dev": "webpack --progress --watch --mode development",
     "start": "node .",
-    "start-dev": "nodemon ./server.js"
+    "start-dev": "nodemon ./server.js",
+    "lint": "eslint ./src",
+    "lint-fix": "eslint ./src --fix"
   },
   "repository": {
     "type": "git",

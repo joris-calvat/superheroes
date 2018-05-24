@@ -1,10 +1,10 @@
 import React from "react";
-import ReactDOM from 'react-dom';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import Character from './Character';
 import Button from '@material-ui/core/Button';
 import Loader from './Loader';
+import PropTypes from 'prop-types';
 import './Characters.css'
 
 class Characters extends React.Component {
@@ -20,7 +20,7 @@ class Characters extends React.Component {
     this.getCharactersFromApi()
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps) {
     if(prevProps.match.params.page !== this.props.match.params.page) {
       this.setState({
         characters: [],
@@ -42,9 +42,6 @@ class Characters extends React.Component {
         characters: response.data.data.results
       })
     })
-    .catch(function (error) {
-      console.log(error);
-    });
   }
 
   render() {
@@ -66,6 +63,15 @@ class Characters extends React.Component {
       {navButtons}
     </div>
   }
+}
+
+Characters.propTypes = {
+  page: PropTypes.string,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      page: PropTypes.string
+    })
+  }),
 }
 
 export default Characters

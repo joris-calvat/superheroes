@@ -1,7 +1,5 @@
 import React from "react";
-import ReactDOM from 'react-dom';
 import axios from 'axios';
-import Character from './Character';
 import Loader from './Loader';
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -9,6 +7,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import PropTypes from 'prop-types';
 import './CharacterDetails.css';
 
 class CharacterDetails extends React.Component {
@@ -27,9 +26,6 @@ class CharacterDetails extends React.Component {
         details: response.data.data.results[0]
       })
     })
-    .catch(function (error) {
-      console.log(error);
-    });
   }
 
   getList(title, list) {
@@ -70,6 +66,16 @@ class CharacterDetails extends React.Component {
       </div>
     </div>;
   }
+}
+
+
+CharacterDetails.propTypes = {
+  id: PropTypes.string,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string
+    })
+  }),
 }
 
 export default CharacterDetails

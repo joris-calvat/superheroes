@@ -20,7 +20,7 @@ const getApiParams = () => {
 
 
 app.get('/api/characters', function (req, res) {
-  const offset = req.param('offset')
+  const { offset } = req.query
   axios.get(`${conf.BASE_URL}/v1/public/characters`, {
     params: {
       ...getApiParams(),
@@ -36,7 +36,7 @@ app.get('/api/characters', function (req, res) {
 })
 
 app.get('/api/characters/:id', function (req, res) {
-  axios.get(`${conf.BASE_URL}/v1/public/characters/${req.query.id}`, {
+  axios.get(`${conf.BASE_URL}/v1/public/characters/${req.params.id}`, {
     params: getApiParams()
   })
   .then(function (response) {
