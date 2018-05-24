@@ -25,7 +25,4 @@ const App = () => (
   </Router>
 )
 
-App.propTypes = {
-};
-
 export default App
