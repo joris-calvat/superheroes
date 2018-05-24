@@ -3,9 +3,10 @@
 ## In this project
 
 - application created from scratch
-- secured server side external api calls
-- client side routed application (react-router-dom)
+- secured server side api calls
+- routed application (react-router-dom & expressJs)
 - scripts to automatically relaunch the server and rebuild client in dev mode
+- use of materialUi
 
 ## Get started
 

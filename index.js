@@ -20,8 +20,12 @@ const getApiParams = () => {
 
 
 app.get('/api/characters', function (req, res) {
+  const offset = req.param('offset')
   axios.get(`${conf.BASE_URL}/v1/public/characters`, {
-    params: getApiParams()
+    params: {
+      ...getApiParams(),
+      offset
+    }
   })
   .then(function (response) {
     res.send(response.data)

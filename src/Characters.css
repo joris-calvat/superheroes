@@ -1,0 +1,18 @@
+.charactersContainer {
+    margin:20px 0;
+}
+
+.characters {
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin:10px;
+}
+
+.navButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin:10px;
+}

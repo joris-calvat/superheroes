@@ -1,22 +1,39 @@
 import React from "react";
 import ReactDOM from 'react-dom';
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import Character from './Character';
-import CircularProgress from '@material-ui/core/CircularProgress';
-
+import Button from '@material-ui/core/Button';
+import Loader from './Loader';
+import './Characters.css'
 
 class Characters extends React.Component {
 
   constructor(props) {
     super(props)
+    console.log('ici')
+    const { page } = this.props.match.params
     this.state = {
-      characters: []
+      characters: [],
+      page: page? parseInt(page):0
     }
     this.getCharactersFromApi()
   }
 
+  componentWillReceiveProps(props) {
+    this.setState({
+      characters: [],
+      page: parseInt(this.props.match.params.page)
+    })
+    this.getCharactersFromApi()
+  }
+
   getCharactersFromApi() {
-    axios.get('/api/characters').then(response => {
+    axios.get('/api/characters', {
+      params: {
+        offset:this.state.page*20
+      }
+    }).then(response => {
       this.setState({
         characters: response.data.data.results
       })
@@ -27,14 +44,23 @@ class Characters extends React.Component {
   }
 
   render() {
-    console.log(this.state.characters)
-    const { characters } = this.state 
+    console.log(this.state)
+    const { characters, page } = this.state 
     
-    if(characters.length === 0) return <CircularProgress />
+    if(characters.length === 0) return <Loader />
 
-    return <div>
-      {characters.map(character => (<Character infos={character} key={`character${character.id}`} />))}
-    </div>;
+    const navButtons=<div className="navButtons">
+      <Button component={Link} to={`/${page-1}`} disabled={page <= 0}>Previous</Button>
+      <Button component={Link} to={`/${page+1}`}>Next</Button>
+    </div>
+
+    return <div className="charactersContainer">
+      {navButtons}
+      <div className="characters">
+        {characters.map(character => (<Character infos={character} key={`character${character.id}`} />))}
+      </div>
+      {navButtons}
+    </div>
   }
 }
 

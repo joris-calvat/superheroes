@@ -1,0 +1,13 @@
+.character {
+    width: 360px;
+    margin:10px;
+}
+
+.character a {
+    text-decoration: none;
+    color:#333;
+}
+
+.characterThumbnail {
+    height:180px;
+}
