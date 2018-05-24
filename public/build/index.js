@@ -46115,25 +46115,30 @@ var Characters = function (_React$Component) {
   }
 
   _createClass(Characters, [{
-    key: "componentWillReceiveProps",
-    value: function componentWillReceiveProps(props) {
-      this.setState({
-        characters: [],
-        page: parseInt(this.props.match.params.page)
-      });
-      this.getCharactersFromApi();
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState, snapshot) {
+      var _this2 = this;
+
+      if (prevProps.match.params.page !== this.props.match.params.page) {
+        this.setState({
+          characters: [],
+          page: parseInt(this.props.match.params.page)
+        }, function () {
+          _this2.getCharactersFromApi();
+        });
+      }
     }
   }, {
     key: "getCharactersFromApi",
     value: function getCharactersFromApi() {
-      var _this2 = this;
+      var _this3 = this;
 
       _axios2.default.get('/api/characters', {
         params: {
           offset: this.state.page * 20
         }
       }).then(function (response) {
-        _this2.setState({
+        _this3.setState({
           characters: response.data.data.results
         });
       }).catch(function (error) {

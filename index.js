@@ -36,7 +36,7 @@ app.get('/api/characters', function (req, res) {
 })
 
 app.get('/api/characters/:id', function (req, res) {
-  axios.get(`${conf.BASE_URL}/v1/public/characters/${req.params.id}`, {
+  axios.get(`${conf.BASE_URL}/v1/public/characters/${req.query.id}`, {
     params: getApiParams()
   })
   .then(function (response) {

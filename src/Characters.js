@@ -20,12 +20,16 @@ class Characters extends React.Component {
     this.getCharactersFromApi()
   }
 
-  componentWillReceiveProps(props) {
-    this.setState({
-      characters: [],
-      page: parseInt(this.props.match.params.page)
-    })
-    this.getCharactersFromApi()
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if(prevProps.match.params.page !== this.props.match.params.page) {
+      this.setState({
+        characters: [],
+        page: parseInt(this.props.match.params.page)
+      }, () => {
+        this.getCharactersFromApi()
+      })
+      
+    }
   }
 
   getCharactersFromApi() {

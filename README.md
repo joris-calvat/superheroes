@@ -2,11 +2,11 @@
 
 ## In this project
 
-- application created from scratch
-- secured server side api calls
+- single page application created from scratch
 - routed application (react-router-dom & expressJs)
+- secured server side api calls
 - scripts to automatically relaunch the server and rebuild client in dev mode
-- use of materialUi
+- use of materialUi & responsive design
 
 ## Config file
 
