@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Character from './Character';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class CharacterDetails extends React.Component {
 
@@ -26,7 +27,9 @@ class CharacterDetails extends React.Component {
 
   render() {
     console.log(this.state.details)
-    if(this.state.details === null) return <div>loading...</div>
+
+    if(this.state.details === null) return <CircularProgress />
+
     return <div>
       {this.state.details.name}
     </div>;

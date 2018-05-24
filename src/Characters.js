@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Character from './Character';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 class Characters extends React.Component {
 
@@ -25,8 +27,13 @@ class Characters extends React.Component {
   }
 
   render() {
+    console.log(this.state.characters)
+    const { characters } = this.state 
+    
+    if(characters.length === 0) return <CircularProgress />
+
     return <div>
-      {this.state.characters.map(character => (<Character infos={character} key={`character${character.id}`} />))}
+      {characters.map(character => (<Character infos={character} key={`character${character.id}`} />))}
     </div>;
   }
 }
