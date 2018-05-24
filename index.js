@@ -3,6 +3,7 @@ const app = express()
 const conf = require('./conf')
 const axios = require('axios')
 const md5 = require('md5')
+const path = require('path')
 
 app.use(express.static('public'))
 
@@ -40,6 +41,11 @@ app.get('/api/characters/:id', function (req, res) {
   .catch(function (error) {
     res.send(error);
   });
+})
+
+
+app.get('/*', function (req, res) {
+  res.sendFile(path.resolve(__dirname, './public/index.html'));
 })
 
 app.listen(3000, function () {

@@ -24434,14 +24434,14 @@ var App = function App() {
           null,
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: "/character" },
+            { to: "/character/123" },
             "Character details"
           )
         )
       ),
       _react2.default.createElement("hr", null),
       _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: Characters }),
-      _react2.default.createElement(_reactRouterDom.Route, { path: "/character", component: CharacterDetails })
+      _react2.default.createElement(_reactRouterDom.Route, { path: "/character/:id", component: CharacterDetails })
     )
   );
 };
