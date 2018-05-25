@@ -13858,7 +13858,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/li
 
 
 // module
-exports.push([module.i, "html, body {\r\n    margin:0;\r\n    padding:0;\r\n}\r\n\r\n.appToolBar {\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n\r\n.appTitle {\r\n    text-transform: uppercase;\r\n    font-size: 24px;\r\n    color: #666;\r\n    font-weight:bold;\r\n    text-decoration: none;\r\n}", ""]);
+exports.push([module.i, "html, body {\n    margin:0;\n    padding:0;\n}\n\n.appToolBar {\n    display: flex;\n    justify-content: center;\n}\n\n.appTitle {\n    text-transform: uppercase;\n    font-size: 24px;\n    color: #666;\n    font-weight:bold;\n    text-decoration: none;\n}", ""]);
 
 // exports
 
@@ -13877,7 +13877,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/li
 
 
 // module
-exports.push([module.i, ".character {\r\n    width: 360px;\r\n    margin:10px;\r\n}\r\n\r\n.character a {\r\n    text-decoration: none;\r\n    color:#333;\r\n}\r\n\r\n.characterThumbnail {\r\n    height:180px;\r\n}", ""]);
+exports.push([module.i, ".character {\n    width: 360px;\n    margin:10px;\n}\n\n.character a {\n    text-decoration: none;\n    color:#333;\n}\n\n.characterThumbnail {\n    height:180px;\n}", ""]);
 
 // exports
 
@@ -13896,7 +13896,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/li
 
 
 // module
-exports.push([module.i, ".characterDetails {\r\n    display:flex;\r\n    flex-direction: row;\r\n    margin: 20px;\r\n}\r\n\r\n.picture {\r\n    width:30%;\r\n}\r\n\r\n\r\n.picture img {\r\n    width:100%;\r\n}\r\n\r\n.details {\r\n    width:70%;\r\n    margin-left: 20px;\r\n}\r\n\r\n\r\n@media screen and (max-width: 600px) {\r\n    .characterDetails {\r\n        flex-direction: column;\r\n    }\r\n\r\n    .picture {\r\n        width:100%;\r\n    }\r\n    \r\n    .picture img {\r\n        max-height:250px;\r\n        width: auto;\r\n    }\r\n\r\n    .details {\r\n        width:100%;\r\n        margin-left: 0;\r\n    }\r\n}\r\n\r\n.detailsTitle {\r\n    margin-bottom:20px !important;\r\n}\r\n\r\n.detailsDescription {\r\n    margin-bottom:20px !important;\r\n}\r\n\r\n.listItems {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.listItem {\r\n    border-style: solid;\r\n    border-width:1px 0 0 0;\r\n    border-color:#ddd;\r\n    padding:10px;\r\n}\r\n\r\n.listItem a {\r\n    text-decoration: none;\r\n}", ""]);
+exports.push([module.i, ".characterDetails {\n    display:flex;\n    flex-direction: row;\n    margin: 20px;\n}\n\n.picture {\n    width:30%;\n}\n\n\n.picture img {\n    width:100%;\n}\n\n.details {\n    width:70%;\n    margin-left: 20px;\n}\n\n\n@media screen and (max-width: 600px) {\n    .characterDetails {\n        flex-direction: column;\n    }\n\n    .picture {\n        width:100%;\n    }\n    \n    .picture img {\n        max-height:250px;\n        width: auto;\n    }\n\n    .details {\n        width:100%;\n        margin-left: 0;\n    }\n}\n\n.detailsTitle {\n    margin-bottom:20px !important;\n}\n\n.detailsDescription {\n    margin-bottom:20px !important;\n}\n\n.listItems {\n    display: flex;\n    flex-direction: column;\n}\n\n.listItem {\n    border-style: solid;\n    border-width:1px 0 0 0;\n    border-color:#ddd;\n    padding:10px;\n}\n\n.listItem a {\n    text-decoration: none;\n}", ""]);
 
 // exports
 
@@ -13915,7 +13915,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/li
 
 
 // module
-exports.push([module.i, ".charactersContainer {\r\n    margin:20px 0;\r\n}\r\n\r\n.characters {\r\n    display:flex;\r\n    flex-direction: row;\r\n    flex-wrap: wrap;\r\n    justify-content: center;\r\n    margin:10px;\r\n}\r\n\r\n.navButtons {\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: center;\r\n    margin:10px;\r\n}", ""]);
+exports.push([module.i, ".charactersContainer {\n    margin:20px 0;\n}\n\n.characters {\n    display:flex;\n    flex-direction: row;\n    flex-wrap: wrap;\n    justify-content: center;\n    margin:10px;\n}\n\n.navButtons {\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    margin:10px;\n}", ""]);
 
 // exports
 
@@ -13934,7 +13934,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/li
 
 
 // module
-exports.push([module.i, ".loader {\r\n    display:flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    align-items: center;\r\n    height:300px;\r\n}", ""]);
+exports.push([module.i, ".loader {\n    display:flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    height:300px;\n}", ""]);
 
 // exports
 
@@ -45117,8 +45117,6 @@ var App = function App() {
     )
   );
 };
-
-App.propTypes = {};
 
 exports.default = App;
 

@@ -11,7 +11,15 @@
 
 ## Config file
 
-Rename the file /conf.copy.json to /conf.json and change the parameters
+Rename the file /conf.copy.json to /conf.json and change the parameters.
+```json
+{
+    "API_PUBLIC": "xxxx",
+    "API_PRIVATE": "xxxx",
+    "BASE_URL": "http://gateway.marvel.com:80"
+}
+```
+replace "xxxx" values
 
 ## Install
 
